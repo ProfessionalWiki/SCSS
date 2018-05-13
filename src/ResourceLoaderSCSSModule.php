@@ -45,7 +45,8 @@ use ResourceLoaderContext;
  */
 class ResourceLoaderSCSSModule extends \ResourceLoaderFileModule {
 
-	protected $cache = null;
+	private $cache = null;
+	private $cacheKey = null;
 
 	protected $variables = [];
 	protected $paths = [];
@@ -56,7 +57,6 @@ class ResourceLoaderSCSSModule extends \ResourceLoaderFileModule {
 
 	/**
 	 * ResourceLoaderSCSSModule constructor.
-	 *
 	 *
 	 * @param mixed[] $options
 	 * @param null $localBasePath
@@ -115,19 +115,20 @@ class ResourceLoaderSCSSModule extends \ResourceLoaderFileModule {
 	protected function retrieveStylesFromCache( ResourceLoaderContext $context ) {
 
 		// Try for cache hit
-		$cacheResult = $this->getCache()->get( $this->getCacheKey( $context ) );
+		$cacheKey = $this->getCacheKey( $context );
+		$cacheResult = $this->getCache()->get( $cacheKey );
 
 		if ( is_array( $cacheResult ) ) {
 
 			if ( $this->isCacheOutdated( $cacheResult[ 'storetime' ] ) ) {
-				wfDebug( __METHOD__ . " ext.bootstrap: Cache miss: Cache outdated.\n" );
+				wfDebug( "SCSS: Cache miss for {$this->getName()}: Cache outdated.\n", 'private' );
 			} else {
 				$this->styleText = $cacheResult[ 'styles' ];
-				wfDebug( __METHOD__ . " ext.bootstrap: Cache hit: Got styles from cache.\n" );
+				wfDebug( "SCSS: Cache hit for {$this->getName()}: Got styles from cache.\n", 'private' );
 			}
 
 		} else {
-			wfDebug( __METHOD__ . " ext.bootstrap: Cache miss: Styles not found in cache.\n" );
+			wfDebug( "SCSS: Cache miss for {$this->getName()}: Styles not found in cache.\n", 'private' );
 		}
 	}
 
@@ -158,7 +159,34 @@ class ResourceLoaderSCSSModule extends \ResourceLoaderFileModule {
 	 * @return string
 	 */
 	protected function getCacheKey( ResourceLoaderContext $context ) {
-		return wfMemcKey( 'ext', 'bootstrap', $context->getHash() );
+
+		if ( $this->cacheKey === null ) {
+
+			$styles = implode( '|', $this->styles );
+			$extstyles = implode( '|', $this->externalStyles );
+
+			$vars = implode( '|', array_map(
+				function ( $value, $key ) {
+					return "$key=$value";
+				},
+				$this->variables,
+				array_keys( $this->variables ) )
+			);
+
+			// have to hash the module config, else it may become too long
+			$configHash = md5( $styles . $extstyles . $vars );
+
+			$this->cacheKey = wfMemcKey(
+				'ext',
+				'scss',
+				$context->getHash(),
+				$this->getName(),
+				$this->getLocalPath( '' ),
+				$configHash
+			);
+		}
+
+		return $this->cacheKey;
 	}
 
 	/**
@@ -254,8 +282,6 @@ class ResourceLoaderSCSSModule extends \ResourceLoaderFileModule {
 
 	/**
 	 * @see ResourceLoaderFileModule::supportsURLLoading
-	 *
-	 * @since  1.0
 	 */
 	public function supportsURLLoading() {
 		return false;

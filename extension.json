@@ -1,9 +1,7 @@
 {
 	"name": "Scss",
 	"type": "other",
-	"author": [
-		"[https://www.mediawiki.org/wiki/User:F.trott Stephan Gambke]"
-	],
+	"author": "[https://www.mediawiki.org/wiki/User:F.trott Stephan Gambke]",
 	"version": "1.0-dev",
 	"url": "https://www.mediawiki.org/wiki/Extension:SCSS",
 	"descriptionmsg": "scss-desc",
