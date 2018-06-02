@@ -45,12 +45,17 @@ use ResourceLoaderContext;
  */
 class ResourceLoaderSCSSModule extends \ResourceLoaderFileModule {
 
+	private $styleModulePositions = [
+		'beforeFunctions', 'functions', 'afterFunctions',
+		'beforeVariables', 'variables', 'afterVariables',
+		'beforeMain', 'main', 'afterMain',
+	];
+
 	private $cache = null;
 	private $cacheKey = null;
 
 	protected $variables = [];
 	protected $paths = [];
-	protected $externalStyles = [];
 	protected $cacheTriggers = [];
 
 	protected $styleText = null;
@@ -75,9 +80,8 @@ class ResourceLoaderSCSSModule extends \ResourceLoaderFileModule {
 	protected function applyOptions( $options ) {
 
 		$mapConfigToLocalVar = [
-			'variables' => 'variables',
-			'paths' => 'paths',
-			'external styles' => 'externalStyles',
+			'variables'      => 'variables',
+			'paths'          => 'paths',
 			'cache triggers' => 'cacheTriggers',
 		];
 
@@ -162,25 +166,20 @@ class ResourceLoaderSCSSModule extends \ResourceLoaderFileModule {
 
 		if ( $this->cacheKey === null ) {
 
-			$styles = implode( '|', $this->styles );
-			$extstyles = implode( '|', $this->externalStyles );
+			$styles = serialize( $this->styles );
 
-			$vars = implode( '|', array_map(
-				function ( $value, $key ) {
-					return "$key=$value";
-				},
-				$this->variables,
-				array_keys( $this->variables ) )
-			);
+			$vars = $this->variables;
+			ksort( $vars );
+			$vars = serialize( $vars );
 
 			// have to hash the module config, else it may become too long
-			$configHash = md5( $styles . $extstyles . $vars );
+			$configHash = md5( $styles . $vars );
 
 			$this->cacheKey = wfMemcKey(
 				'ext',
 				'scss',
-				$context->getHash(),
-				$this->getName(),
+				//$context->getHash(), // FIXME: Is this hash needed?
+				//$this->getName(), // FIXME: Is the name needed?
 				$this->getLocalPath( '' ),
 				$configHash
 			);
@@ -213,43 +212,30 @@ class ResourceLoaderSCSSModule extends \ResourceLoaderFileModule {
 	protected function compileStyles( ResourceLoaderContext $context ) {
 
 		$scss = new \Leafo\ScssPhp\Compiler();
-		$path = $this->getLocalPath( '' );
-		$scss->setImportPaths( $path );
+		$scss->setImportPaths( $this->getLocalPath( '' ) );
 
 		// Allows inlining of arbitrary files regardless of extension, .css in particular
-		$scss->addImportPath( function ( $path ) {
-
-			if ( !file_exists( $path ) ) {
+		$scss->addImportPath(
+			function ( $path ) {
+				if ( file_exists( $path ) ) {
+					return $path;
+				}
 				return null;
 			}
-
-			return $path;
-		} );
-
-		// FIXME: What to do???
-		// $remotePath = $this->getRemotePath( '' );
+		);
 
 		try {
 
-			$imports = '';
+			$imports = $this->getStyleFilesList();
 
-			foreach ( $this->styles as $style ) {
-				$imports .= '@import "' . $style . '";';
-			}
-
-			foreach ( $this->externalStyles as $stylefile => $remotePath ) {
-
-				if ( is_readable( $stylefile ) ) {
-					$imports .= "@import \"" . $stylefile . "\";\n";
-				} else {
-					throw new \MWException( "External style file $stylefile is not readable." );
-				}
-
+			foreach ( $imports as $key => $import ) {
+				$path = str_replace( [ '\\', '"' ], [ '\\\\', '\\"' ], $import );
+				$imports[ $key ] = '@import "' . $path . '";';
 			}
 
 			$scss->setVariables( $this->variables );
 
-			$this->styleText = $scss->compile( $imports );
+			$this->styleText = $scss->compile( implode( $imports ) );
 
 			$this->updateCache( $context );
 
@@ -285,6 +271,22 @@ class ResourceLoaderSCSSModule extends \ResourceLoaderFileModule {
 	 */
 	public function supportsURLLoading() {
 		return false;
+	}
+
+	/**
+	 * @return array
+	 */
+	protected function getStyleFilesList() {
+		$styles = self::collateFilePathListByOption( $this->styles, 'position', 'main' );
+		$imports = [];
+
+		foreach ( $this->styleModulePositions as $position ) {
+			if ( isset( $styles[ $position ] ) ) {
+				$imports = array_merge( $imports, $styles[ $position ] );
+			}
+		}
+
+		return $imports;
 	}
 
 }
