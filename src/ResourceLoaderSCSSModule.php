@@ -25,6 +25,7 @@
 
 namespace SCSS;
 
+use CSSJanus;
 use ResourceLoaderContext;
 
 
@@ -178,10 +179,8 @@ class ResourceLoaderSCSSModule extends \ResourceLoaderFileModule {
 			$this->cacheKey = wfMemcKey(
 				'ext',
 				'scss',
-				//$context->getHash(), // FIXME: Is this hash needed?
-				//$this->getName(), // FIXME: Is the name needed?
-				$this->getLocalPath( '' ),
-				$configHash
+				$configHash,
+				$context->getDirection()
 			);
 		}
 
@@ -235,7 +234,20 @@ class ResourceLoaderSCSSModule extends \ResourceLoaderFileModule {
 
 			$scss->setVariables( $this->variables );
 
-			$this->styleText = $scss->compile( implode( $imports ) );
+			$style = $scss->compile( implode( $imports ) );
+
+			if ( $this->getFlip( $context ) ) {
+				// Turn off PCRE JIT to avoid PREG_JIT_STACKLIMIT_ERROR (see https://github.com/cssjanus/php-cssjanus/issues/14)
+				// TODO: Take this out once the bug is fixed.
+				$jitStatus = ini_get( 'pcre.jit' );
+				ini_set('pcre.jit', 0);
+
+				$style = CSSJanus::transform( $style, true, false );
+
+				ini_set('pcre.jit', $jitStatus );
+			}
+
+			$this->styleText = $style;
 
 			$this->updateCache( $context );
 
