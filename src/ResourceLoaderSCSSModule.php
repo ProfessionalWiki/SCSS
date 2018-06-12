@@ -237,14 +237,7 @@ class ResourceLoaderSCSSModule extends \ResourceLoaderFileModule {
 			$style = $scss->compile( implode( $imports ) );
 
 			if ( $this->getFlip( $context ) ) {
-				// Turn off PCRE JIT to avoid PREG_JIT_STACKLIMIT_ERROR (see https://github.com/cssjanus/php-cssjanus/issues/14)
-				// TODO: Take this out once the bug is fixed.
-				$jitStatus = ini_get( 'pcre.jit' );
-				ini_set('pcre.jit', 0);
-
 				$style = CSSJanus::transform( $style, true, false );
-
-				ini_set('pcre.jit', $jitStatus );
 			}
 
 			$this->styleText = $style;
