@@ -85,7 +85,7 @@ class ResourceLoaderSCSSModule extends \ResourceLoaderFileModule {
 		$mapConfigToLocalVar = [
 			'variables'      => 'variables',
 			'paths'          => 'paths',
-			'cache triggers' => 'cacheTriggers',
+			'cacheTriggers' => 'cacheTriggers',
 		];
 
 		foreach ( $mapConfigToLocalVar as $config => $local ) {
