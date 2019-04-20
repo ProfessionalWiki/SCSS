@@ -16,8 +16,13 @@
 	"Hooks": {
 
 	},
+	"config_prefix": "eg",
 	"config": {
-
+		"ScssCacheType" : {
+			"value": -1,
+			"decriptionmsg": "scss-cache-type-desc"
+		}
 	},
-	"load_composer_autoloader": true
+	"load_composer_autoloader": true,
+	"manifest_version": 2
 }

@@ -2,7 +2,7 @@
 /**
  * File containing the ResourceLoaderSCSSModule class
  *
- * @copyright 2018, Stephan Gambke
+ * @copyright 2018 - 2019, Stephan Gambke
  * @license   GNU General Public License, version 3 (or any later version)
  *
  * This file is part of the MediaWiki extension SCSS.
@@ -26,6 +26,8 @@
 namespace SCSS;
 
 use CSSJanus;
+use Leafo\ScssPhp\Compiler;
+use ObjectCache;
 use ResourceLoaderContext;
 
 
@@ -143,7 +145,7 @@ class ResourceLoaderSCSSModule extends \ResourceLoaderFileModule {
 	protected function getCache() {
 
 		if ( $this->cache === null ) {
-			$this->cache = wfGetCache( CACHE_ANYTHING );
+			$this->cache = ObjectCache::getInstance( $GLOBALS[ 'egScssCacheType' ] );
 		}
 
 		return $this->cache;
