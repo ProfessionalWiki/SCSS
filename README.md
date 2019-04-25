@@ -16,7 +16,13 @@
 
 2. With Composer installed, run
    `composer require "mediawiki/scss:~1.0"`
-3. __Done:__ Navigate to _Special:Version_ on your wiki to verify that the
+   
+3. Load the extension by adding the following line to `LocalSettings.php`:
+
+	```php
+	wfLoadExtension( 'Scss' );
+	``` 
+4. __Done:__ Navigate to _Special:Version_ on your wiki to verify that the
    extension is successfully installed.
 
 ## Use
