@@ -67,8 +67,8 @@ class ResourceLoaderSCSSModule extends \ResourceLoaderFileModule {
 	 * ResourceLoaderSCSSModule constructor.
 	 *
 	 * @param mixed[] $options
-	 * @param null $localBasePath
-	 * @param null $remoteBasePath
+	 * @param string|null $localBasePath
+	 * @param string|null $remoteBasePath
 	 */
 	public function __construct( $options = [], $localBasePath = null, $remoteBasePath = null ) {
 
@@ -217,12 +217,16 @@ class ResourceLoaderSCSSModule extends \ResourceLoaderFileModule {
 
 		// Allows inlining of arbitrary files regardless of extension, .css in particular
 		$scss->addImportPath(
+
+			// addImportPath is declared as requiring a string param, but actually also understand callables
+			/** @scrutinizer ignore-type */
 			function ( $path ) {
 				if ( file_exists( $path ) ) {
 					return $path;
 				}
 				return null;
 			}
+
 		);
 
 		try {
