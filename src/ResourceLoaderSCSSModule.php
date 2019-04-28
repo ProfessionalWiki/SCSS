@@ -25,10 +25,13 @@
 
 namespace SCSS;
 
+use BagOStuff;
 use CSSJanus;
+use Exception;
 use Leafo\ScssPhp\Compiler;
 use ObjectCache;
 use ResourceLoaderContext;
+use ResourceLoaderFileModule;
 
 
 /**
@@ -46,7 +49,7 @@ use ResourceLoaderContext;
  *
  * @ingroup SCSS
  */
-class ResourceLoaderSCSSModule extends \ResourceLoaderFileModule {
+class ResourceLoaderSCSSModule extends ResourceLoaderFileModule {
 
 	private $styleModulePositions = [
 		'beforeFunctions', 'functions', 'afterFunctions',
@@ -140,7 +143,7 @@ class ResourceLoaderSCSSModule extends \ResourceLoaderFileModule {
 	}
 
 	/**
-	 * @return \BagOStuff|null
+	 * @return BagOStuff|null
 	 */
 	protected function getCache() {
 
@@ -154,9 +157,9 @@ class ResourceLoaderSCSSModule extends \ResourceLoaderFileModule {
 	/**
 	 * @since  1.0
 	 *
-	 * @param \BagOStuff $cache
+	 * @param BagOStuff $cache
 	 */
-	public function setCache( \BagOStuff $cache ) {
+	public function setCache( BagOStuff $cache ) {
 		$this->cache = $cache;
 	}
 
@@ -212,7 +215,7 @@ class ResourceLoaderSCSSModule extends \ResourceLoaderFileModule {
 	 */
 	protected function compileStyles( ResourceLoaderContext $context ) {
 
-		$scss = new \Leafo\ScssPhp\Compiler();
+		$scss = new Compiler();
 		$scss->setImportPaths( $this->getLocalPath( '' ) );
 
 		// Allows inlining of arbitrary files regardless of extension, .css in particular
@@ -250,7 +253,7 @@ class ResourceLoaderSCSSModule extends \ResourceLoaderFileModule {
 
 			$this->updateCache( $context );
 
-		} catch ( \Exception $e ) {
+		} catch ( Exception $e ) {
 
 			$this->purgeCache( $context );
 			wfDebug( $e->getMessage() );
