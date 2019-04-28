@@ -29,7 +29,7 @@
 		"rss": "https://github.com/cmln/scss/releases.atom"
 	},
 	"require": {
-		"php": ">=7.0",
+		"php": ">=5.6",
 		"composer/installers": "^1.0.1",
 		"mediawiki/mediawiki": ">=1.27.0",
 		"leafo/scssphp": "~0.7.5"

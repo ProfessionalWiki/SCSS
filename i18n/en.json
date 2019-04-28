@@ -1,4 +1,4 @@
 {
-	"scss-desc": "Use SCSS for MediaWiki styling",
+	"scss-desc": "Provides a ResourceLoader module capable of compiling SCSS.",
 	"scss-cache-type-desc": "The cache type to be used to cache compiled styles."
 }

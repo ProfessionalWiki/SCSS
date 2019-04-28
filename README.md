@@ -1,7 +1,9 @@
 # MediaWiki SCSS extension
 
 [![Latest Stable Version](https://poser.pugx.org/mediawiki/scss/version.png)](https://packagist.org/packages/mediawiki/scss)
-[![Packagist download count](https://poser.pugx.org/mediawiki/scss/d/total.png)](https://packagist.org/packages/mediawiki/scss)
+[![License](https://poser.pugx.org/mediawiki/scss/license)](https://packagist.org/packages/mediawiki/scss)
+
+The MediaWiki SCSS extension provides a ResourceLoader module capable of compiling SCSS.
 
 ## Requirements
 
@@ -12,23 +14,23 @@
 
 ## Installation
 
-1. On a command line go to your MediaWiki installation directory
-
-2. With Composer installed, run
-   `composer require "mediawiki/scss:~1.0"`
+1. In the MediaWiki installation directory, add `"mediawiki/scss":"~1.0"` to the
+   `require` section in the file `composer.local.json`.
+   
+2. Still in the MediaWiki installation directory, from a command line run<br>
+   `composer update "mediawiki/scss"`.
    
 3. Load the extension by adding the following line to `LocalSettings.php`:
 
 	```php
 	wfLoadExtension( 'Scss' );
 	``` 
-4. __Done:__ Navigate to _Special:Version_ on your wiki to verify that the
+4. __Done:__ Navigate to _Special:Version_ page on your wiki to verify that the
    extension is successfully installed.
 
 ## Use
 
-The extension provides a ResourceLoader module capable of compiling SCSS.
-An SCSS module is defined much like any other style modue. See the manual for
+An SCSS module is defined much like any other style module. See the manual for
 [$wgResourceModules](https://www.mediawiki.org/wiki/Manual:$wgResourceModules).
 It should also be possible to add the module definition to the `extension.json`
 of a MediaWiki extension. See
