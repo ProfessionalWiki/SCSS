@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"Railfail536"
+		]
+	},
+	"scss-desc": "Wprowadza moduł ResourceLoadera zdolny do kompilowania kodu SCSS",
+	"scss-cache-type-desc": "Typ pamięci cache używany do buforowania skompilowanych stylów."
+}
