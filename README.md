@@ -1,5 +1,6 @@
 # MediaWiki SCSS extension
 
+[![Build Status](https://scrutinizer-ci.com/g/ProfessionalWiki/mw-scss/badges/build.png?b=master)](https://scrutinizer-ci.com/g/ProfessionalWiki/mw-scss/build-status/master)
 [![Latest Stable Version](https://poser.pugx.org/mediawiki/scss/version.png)](https://packagist.org/packages/mediawiki/scss)
 [![License](https://poser.pugx.org/mediawiki/scss/license)](https://packagist.org/packages/mediawiki/scss)
 
@@ -10,7 +11,6 @@ The MediaWiki SCSS extension provides a ResourceLoader module capable of compili
 - [PHP][php] 5.6 or later
 - [MediaWiki][mediawiki] 1.27 or later
 - [Composer][composer]
-
 
 ## Installation
 
