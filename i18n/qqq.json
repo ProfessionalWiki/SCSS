@@ -1,5 +1,7 @@
 {
-	"@metadata": [],
+	"@metadata": {
+		"authors": []
+	},
 	"scss-desc": "{{desc|name=SCSS|url=https://www.mediawiki.org/wiki/Extension:SCSS}}",
 	"scss-cache-type-desc": "Description of the configuration variable $egScssCacheType."
 }
