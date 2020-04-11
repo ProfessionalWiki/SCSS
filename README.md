@@ -8,9 +8,9 @@ The MediaWiki SCSS extension provides a ResourceLoader module capable of compili
 
 ## Requirements
 
-- [PHP][php] 5.6 or later
-- [MediaWiki][mediawiki] 1.27 or later
-- [Composer][composer]
+- [PHP] 5.6 or later
+- [MediaWiki] 1.27 or later
+- [Composer]
 
 ## Installation
 
@@ -116,8 +116,8 @@ be done on a production site.
 You can use the SCSS extension under the [GNU General Public License,
 version 3][license] (or any later version).
 
-[php]: https://php.net
-[mediawiki]: https://www.mediawiki.org/wiki/MediaWiki 
-[composer]: https://getcomposer.org/
+[PHP]: https://php.net
+[MediaWiki]: https://www.mediawiki.org/wiki/MediaWiki 
+[cComposer]: https://getcomposer.org/
 [license]: https://www.gnu.org/copyleft/gpl.html
 [SCSS]: https://en.wikipedia.org/wiki/Sass_(stylesheet_language)
