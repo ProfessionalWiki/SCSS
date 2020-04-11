@@ -118,6 +118,6 @@ version 3][license] (or any later version).
 
 [PHP]: https://php.net
 [MediaWiki]: https://www.mediawiki.org/wiki/MediaWiki 
-[cComposer]: https://getcomposer.org/
+[Composer]: https://getcomposer.org/
 [license]: https://www.gnu.org/copyleft/gpl.html
 [SCSS]: https://en.wikipedia.org/wiki/Sass_(stylesheet_language)
