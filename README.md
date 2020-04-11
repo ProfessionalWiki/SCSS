@@ -1,6 +1,6 @@
 # MediaWiki SCSS extension
 
-[![Build Status](https://scrutinizer-ci.com/g/ProfessionalWiki/mw-scss/badges/build.png?b=master)](https://scrutinizer-ci.com/g/ProfessionalWiki/mw-scss/build-status/master)
+[![Build Status](https://scrutinizer-ci.com/g/ProfessionalWiki/SCSS/badges/build.png?b=master)](https://scrutinizer-ci.com/g/ProfessionalWiki/SCSS/build-status/master)
 [![Latest Stable Version](https://poser.pugx.org/mediawiki/scss/version.png)](https://packagist.org/packages/mediawiki/scss)
 [![License](https://poser.pugx.org/mediawiki/scss/license)](https://packagist.org/packages/mediawiki/scss)
 
