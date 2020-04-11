@@ -4,7 +4,7 @@
 [![Latest Stable Version](https://poser.pugx.org/mediawiki/scss/version.png)](https://packagist.org/packages/mediawiki/scss)
 [![License](https://poser.pugx.org/mediawiki/scss/license)](https://packagist.org/packages/mediawiki/scss)
 
-The MediaWiki SCSS extension provides a ResourceLoader module capable of compiling SCSS.
+The MediaWiki SCSS extension provides a ResourceLoader module capable of compiling [SCSS].
 
 ## Requirements
 
@@ -120,3 +120,4 @@ version 3][license] (or any later version).
 [mediawiki]: https://www.mediawiki.org/wiki/MediaWiki 
 [composer]: https://getcomposer.org/
 [license]: https://www.gnu.org/copyleft/gpl.html
+[SCSS]: https://en.wikipedia.org/wiki/Sass_(stylesheet_language)
