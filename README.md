@@ -126,3 +126,4 @@ version 3][license] (or any later version).
 [Composer]: https://getcomposer.org/
 [license]: https://www.gnu.org/copyleft/gpl.html
 [SCSS]: https://en.wikipedia.org/wiki/Sass_(stylesheet_language)
+[contact-form]: https://professional.wiki/en/contact
