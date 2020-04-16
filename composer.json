@@ -38,7 +38,7 @@
 		"php": ">=5.6",
 		"composer/installers": "^1.0.1",
 		"mediawiki/mediawiki": ">=1.27.0",
-		"leafo/scssphp": "~0.7.5"
+		"scssphp/scssphp": "^1.0.9"
 	},
 	"autoload": {
 		"psr-4": {
