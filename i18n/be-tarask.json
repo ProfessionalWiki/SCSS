@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"Red Winged Duck"
+		]
+	},
+	"scss-desc": "Забясьпечвае модуль ResourceLoader, здольны кампіляваць SCSS.",
+	"scss-cache-type-desc": "Тып кэшу для ўжываньня пры кэшаваньні скампіляваных стыляў."
+}

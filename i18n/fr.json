@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"Gomoko"
+		]
+	},
+	"scss-desc": "Fournit un module ResourceLoader capable de compiler SCSS.",
+	"scss-cache-type-desc": "Le type de cache à utiliser pour mettre en cache les styles compilés."
+}

@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"Omotecho"
+		]
+	},
+	"scss-desc": "SCSS をコンパイルする ResourceLoader モジュールを提供",
+	"scss-cache-type-desc": "コンパイルした様式をキャッシュするキャッシュ分類。"
+}

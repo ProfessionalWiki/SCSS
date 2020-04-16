@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"Hedda"
+		]
+	},
+	"scss-desc": "SCSS'yi derleyebilecek bir ResourceLoader modülü sağlar.",
+	"scss-cache-type-desc": "Derlenmiş stilleri önbelleğe almak için kullanılacak önbellek türü."
+}
