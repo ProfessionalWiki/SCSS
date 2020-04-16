@@ -62,14 +62,14 @@ There are some additional keys, that may be used:
  
 * `variables`:
 	An array of variables and values to override the SCSS variables in the
-	style files. This allows to change values (e.g. colors, fonts, margins)
+	style files. This allows changing values (e.g. colors, fonts, margins)
 	without having to modify the actual style files.
 * `cacheTriggers`:
-	Compiling SCSS is expensive, so sompiling results are cached. This option
+	Compiling SCSS is expensive, so compiled results are cached. This option
 	lists files that when changed will trigger a flushing of the cache and
 	re-compiling the style files.
 	
-	All files on this list will be checked for each web request. To minimizs the
+	All files on this list will be checked for each web request. To minimizes the
 	load on the file system and the time to build the page it is not advisable
 	to just add all style files to this list. 
  
