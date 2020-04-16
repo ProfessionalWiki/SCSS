@@ -1,9 +1,0 @@
-{
-	"@metadata": {
-		"authors": [
-			"Piramidion"
-		]
-	},
-	"scss-desc": "Надає модуль ResourceLoader, спроможний компілювати SCSS.",
-	"scss-cache-type-desc": "Тип кешування, який має використовуватись для кешування скомпільованих стилів."
-}

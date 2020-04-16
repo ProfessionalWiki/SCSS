@@ -148,10 +148,14 @@ class ResourceLoaderSCSSModule extends ResourceLoaderFileModule {
 	protected function getCache() {
 
 		if ( $this->cache === null ) {
-			$this->cache = ObjectCache::getInstance( $GLOBALS[ 'egScssCacheType' ] );
+			$this->cache = ObjectCache::getInstance( $this->getCacheType() );
 		}
 
 		return $this->cache;
+	}
+
+	private function getCacheType() {
+		return array_key_exists( 'egScssCacheType', $GLOBALS ) ? $GLOBALS[ 'egScssCacheType' ] : -1;
 	}
 
 	/**

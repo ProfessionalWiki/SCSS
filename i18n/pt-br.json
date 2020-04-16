@@ -1,9 +1,0 @@
-{
-	"@metadata": {
-		"authors": [
-			"Eduardo Addad de Oliveira"
-		]
-	},
-	"scss-desc": "Fornece um módulo ResourceLoader capaz de compilar o SCSS.",
-	"scss-cache-type-desc": "O tipo de cache a ser usado para armazenar em cache estilos compilados."
-}
