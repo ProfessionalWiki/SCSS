@@ -1,9 +1,0 @@
-{
-	"@metadata": {
-		"authors": [
-			"Bjankuloski06"
-		]
-	},
-	"scss-desc": "Дава модул ResourceLoader способен за составување на SCSS.",
-	"scss-cache-type-desc": "Вид на меѓускладот во кој ќе се ставаат составените стилови."
-}

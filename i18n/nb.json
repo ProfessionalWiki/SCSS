@@ -1,9 +1,0 @@
-{
-	"@metadata": {
-		"authors": [
-			"Jon Harald Søby"
-		]
-	},
-	"scss-desc": "Gir en ResourceLoader-modul som kan kompilere SCSS.",
-	"scss-cache-type-desc": "Mellomlagertypen som skal brukes for å mellomlagre kompilerte stiler."
-}
