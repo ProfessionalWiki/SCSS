@@ -28,7 +28,7 @@ namespace SCSS;
 use BagOStuff;
 use CSSJanus;
 use Exception;
-use Leafo\ScssPhp\Compiler;
+use ScssPhp\ScssPhp\Compiler;
 use ObjectCache;
 use ResourceLoaderContext;
 use ResourceLoaderFileModule;
