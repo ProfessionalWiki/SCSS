@@ -1,9 +1,0 @@
-{
-	"@metadata": {
-		"authors": [
-			"Mainframe98"
-		]
-	},
-	"scss-desc": "Voegt een ResourceLoader module toe die SCSS kan compileren.",
-	"scss-cache-type-desc": "Het soort cache dat gebruikt moet worden om de gecompileerde opmaak te cachen."
-}

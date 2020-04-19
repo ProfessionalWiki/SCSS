@@ -1,9 +1,0 @@
-{
-	"@metadata": {
-		"authors": [
-			"Hamilton Abreu"
-		]
-	},
-	"scss-desc": "Fornece um módulo ResourceLoader com a capacidade de compilar SCSS.",
-	"scss-cache-type-desc": "O tipo de ''cache'' a ser usado para armazenar em ''cache'' os estilos compilados."
-}

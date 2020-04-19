@@ -1,9 +1,0 @@
-{
-	"@metadata": {
-		"authors": [
-			"Kly"
-		]
-	},
-	"scss-desc": "提供編譯 SCSS 的有用 ResourceLoader 模組。",
-	"scss-cache-type-desc": "使用於快取編譯樣式的快取類型。"
-}
