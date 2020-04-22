@@ -96,7 +96,7 @@ be done on a production site.
 
 ## Professional Support
 
-The SCSS extension is maintined by [Professional.Wiki](https://professional.wiki).
+The SCSS extension is maintained by [Professional.Wiki](https://professional.wiki).
 You can [contract us][contact-form] to help you with installation or customization of SCSS.
 We also do development work.
 
