@@ -123,7 +123,7 @@ version 3][license] (or any later version).
 
 ## Release notes
 
-### Version 2.0.1
+### Version 2.0.2
 
 Released on 2020-09-07
 
