@@ -123,9 +123,15 @@ version 3][license] (or any later version).
 
 ## Release notes
 
+### Version 2.0.1
+
+Released on 2020-09-07
+
+* Temporarily fixed the version of `scssphp` to 1.1.1 to avoid 1.2 bug
+
 ### Version 2.0
 
-Releases on 2020-04-19
+Released on 2020-04-19
 
 * Turned MediaWiki extension into a standard PHP/Composer library
 * Switched to new version of `scssphp`

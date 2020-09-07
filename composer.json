@@ -37,7 +37,7 @@
 	},
 	"require": {
 		"php": ">=5.6",
-		"scssphp/scssphp": "^1.0.9"
+		"scssphp/scssphp": "^1.1.1"
 	},
 	"autoload": {
 		"psr-4": {
