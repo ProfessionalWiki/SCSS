@@ -185,7 +185,7 @@ class ResourceLoaderSCSSModule extends ResourceLoaderFileModule {
 			// have to hash the module config, else it may become too long
 			$configHash = md5( $styles . $vars );
 
-			$this->cacheKey = wfMemcKey(
+			$this->cacheKey = \ObjectCache::getLocalClusterInstance()->makeKey(
 				'ext',
 				'scss',
 				$configHash,
