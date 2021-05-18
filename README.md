@@ -123,6 +123,12 @@ version 3][license] (or any later version).
 
 ## Release notes
 
+### Version 2.0.7
+
+Released on 2021-05-18
+
+* Increased minimum version of `scssphp`
+
 ### Version 2.0.6
 
 Released on 2021-05-15
