@@ -78,7 +78,12 @@ class ResourceLoaderSCSSModuleTest extends \PHPUnit_Framework_TestCase {
 		$configHash = md5( $str . $str );
 
 		$cache->set(
-			wfMemcKey( 'ext', 'scss', $configHash, $resourceLoaderContext->getDirection() ),
+			\ObjectCache::getLocalClusterInstance()->makeKey(
+				'ext',
+				'scss',
+				$configHash,
+				$resourceLoaderContext->getDirection()
+			),
 			[
 				'storetime' => time(),
 				'styles'    => 'foo'

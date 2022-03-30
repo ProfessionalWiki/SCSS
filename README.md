@@ -8,8 +8,8 @@ The MediaWiki SCSS library provides a ResourceLoader module capable of compiling
 
 ## Requirements
 
-- [PHP] 5.6 or later
-- [MediaWiki] 1.27 or later
+- [PHP] 7.4.3 or later
+- [MediaWiki] 1.35 or later
 - [Composer]
 
 ## Use
@@ -43,7 +43,7 @@ There are some additional keys, that may be used:
 
     All files of one module will be compiled together, i.e. variables, mixins
     etc. will be shared between them.
- 
+
 * `variables`:
 	An array of variables and values to override the SCSS variables in the
 	style files. This allows changing values (e.g. colors, fonts, margins)
@@ -52,11 +52,11 @@ There are some additional keys, that may be used:
 	Compiling SCSS is expensive, so compiled results are cached. This option
 	lists files that when changed will trigger a flushing of the cache and
 	re-compiling the style files.
-	
+
 	All files on this list will be checked for each web request. To minimizes the
 	load on the file system and the time to build the page it is not advisable
-	to just add all style files to this list. 
- 
+	to just add all style files to this list.
+
 Here is an example definition:
 ```php
 $wgResourceModules[ 'ext.MyExtension.styles' ] = [
@@ -82,9 +82,9 @@ $wgResourceModules[ 'ext.MyExtension.styles' ] = [
 ];
 ```
 
-The extension uses the [leafo/scssphp](https://github.com/leafo/scssphp)
+The extension uses the [scssphp/scssphp](https://github.com/scssphp/scssphp)
 compiler, which has some limitations. See the
-[issue list](https://github.com/leafo/scssphp/issues).
+[issue list](https://github.com/scssphp/scssphp/issues).
 
 
 ### Cache type
@@ -92,7 +92,7 @@ compiler, which has some limitations. See the
 `$egScssCacheType` can be set to request a specific cache type to be used for
 the compiled styles. To disable caching of SCSS styles completely (e.g. during
 development), set `$egScssCacheType = CACHE_NONE;`. This should obviously never
-be done on a production site. 
+be done on a production site.
 
 ## Professional Support
 
@@ -115,13 +115,20 @@ You can use the SCSS extension under the [GNU General Public License,
 version 3][license] (or any later version).
 
 [PHP]: https://php.net
-[MediaWiki]: https://www.mediawiki.org/wiki/MediaWiki 
+[MediaWiki]: https://www.mediawiki.org/wiki/MediaWiki
 [Composer]: https://getcomposer.org/
 [license]: https://www.gnu.org/copyleft/gpl.html
 [SCSS]: https://en.wikipedia.org/wiki/Sass_(stylesheet_language)
 [contact-form]: https://professional.wiki/en/contact
 
 ## Release notes
+
+### Version 3.0.0
+
+Under development.
+
+* Raised minimum MediaWiki version from 1.27 to 1.35
+* Raised minimum PHP version from 5.6 to 7.4.3
 
 ### Version 2.0.7
 
