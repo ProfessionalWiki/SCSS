@@ -19,6 +19,7 @@ cat <<EOT >> composer.local.json
 		"merge-plugin": {
 			"merge-dev": true,
 			"include": [
+				"vendor/mediawiki/scss/composer.json"
 			]
 		}
 	}
