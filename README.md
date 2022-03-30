@@ -1,6 +1,6 @@
 # MediaWiki SCSS library
 
-[![Build Status](https://scrutinizer-ci.com/g/ProfessionalWiki/SCSS/badges/build.png?b=master)](https://scrutinizer-ci.com/g/ProfessionalWiki/SCSS/build-status/master)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/ProfessionalWiki/SCSS/CI/master)](https://github.com/ProfessionalWiki/SCSS/actions?query=workflow%3ACI)
 [![Latest Stable Version](https://poser.pugx.org/mediawiki/scss/version.png)](https://packagist.org/packages/mediawiki/scss)
 [![License](https://poser.pugx.org/mediawiki/scss/license)](https://packagist.org/packages/mediawiki/scss)
 
@@ -125,10 +125,11 @@ version 3][license] (or any later version).
 
 ### Version 3.0.0
 
-Under development.
+Released on 2022-03-30
 
 * Raised minimum MediaWiki version from 1.27 to 1.35
 * Raised minimum PHP version from 5.6 to 7.4.3
+* Raised minimum `scssphp` version from 1.5.2 to 1.10.2
 
 ### Version 2.0.7
 
