@@ -32,7 +32,7 @@
 		"issues": "https://github.com/ProfessionalWiki/SCSS/issues",
 		"irc": "irc://libera.chat:6667/mediawiki",
 		"source": "https://github.com/ProfessionalWiki/SCSS",
-		"docs": "https://github.com/ProfessionalWiki/SCSS/tree/latest/docs",
+		"docs": "https://github.com/ProfessionalWiki/SCSS",
 		"rss": "https://github.com/ProfessionalWiki/SCSS/releases.atom"
 	},
 	"require": {
