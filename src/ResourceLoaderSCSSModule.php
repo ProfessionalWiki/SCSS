@@ -295,7 +295,7 @@ class ResourceLoaderSCSSModule extends ResourceLoaderFileModule {
 	 * @return array
 	 */
 	protected function getStyleFilesList() {
-		$styles = self::collateFilePathListByOption( $this->styles, 'position', 'main' );
+		$styles = $this->collateStyleFilesByPosition();
 		$imports = [];
 
 		foreach ( $this->styleModulePositions as $position ) {
@@ -305,6 +305,30 @@ class ResourceLoaderSCSSModule extends ResourceLoaderFileModule {
 		}
 
 		return $imports;
+	}
+
+	/**
+	 * @return string[][]
+	 */
+	private function collateStyleFilesByPosition() {
+		$collatedFiles = [];
+		foreach ( $this->styles as $key => $value ) {
+			if ( is_int( $key ) ) {
+				// File name as the value
+				if ( !isset( $collatedFiles['main'] ) ) {
+					$collatedFiles['main'] = [];
+				}
+				$collatedFiles['main'][] = $value;
+			} elseif ( is_array( $value ) ) {
+				// File name as the key, options array as the value
+				$optionValue = $value['position'] ?? 'main';
+				if ( !isset( $collatedFiles[$optionValue] ) ) {
+					$collatedFiles[$optionValue] = [];
+				}
+				$collatedFiles[$optionValue][] = $key;
+			}
+		}
+		return $collatedFiles;
 	}
 
 }
