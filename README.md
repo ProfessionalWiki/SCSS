@@ -131,6 +131,12 @@ Released on 2022-03-30
 * Raised minimum PHP version from 5.6 to 7.4.3
 * Raised minimum `scssphp` version from 1.5.2 to 1.10.2
 
+### Version 2.0.8
+
+Released on 2022-07-25
+
+* Added preliminary compatibility with MediaWiki 1.39
+
 ### Version 2.0.7
 
 Released on 2021-05-18
