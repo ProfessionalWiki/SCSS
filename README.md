@@ -123,6 +123,12 @@ version 3][license] (or any later version).
 
 ## Release notes
 
+### Version 2.0.8
+
+Released on 2022-07-25
+
+* Added preliminary compatibility with MediaWiki 1.39
+
 ### Version 2.0.7
 
 Released on 2021-05-18
