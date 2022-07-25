@@ -10,7 +10,6 @@
          stopOnFailure="false"
          stopOnIncomplete="false"
          stopOnSkipped="false"
-         strict="true"
          verbose="true">
     <!--bootstrap="tests/bootstrap.php"-->
     <testsuites>
