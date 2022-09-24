@@ -3,7 +3,7 @@
  * File containing the ResourceLoaderSCSSModule class
  *
  * @copyright 2018 - 2019, Stephan Gambke
- * @license   GNU General Public License, version 3 (or any later version)
+ * @license   GPL-3.0-or-later
  *
  * This file is part of the MediaWiki extension SCSS.
  * The SCSS extension is free software: you can redistribute it and/or modify
@@ -28,11 +28,10 @@ namespace SCSS;
 use BagOStuff;
 use CSSJanus;
 use Exception;
-use ScssPhp\ScssPhp\Compiler;
 use ObjectCache;
 use ResourceLoaderContext;
 use ResourceLoaderFileModule;
-
+use ScssPhp\ScssPhp\Compiler;
 
 /**
  * ResourceLoader module based on local JavaScript/SCSS files.
@@ -51,20 +50,20 @@ use ResourceLoaderFileModule;
  */
 class ResourceLoaderSCSSModule extends ResourceLoaderFileModule {
 
-	private $styleModulePositions = [
+	private array $styleModulePositions = [
 		'beforeFunctions', 'functions', 'afterFunctions',
 		'beforeVariables', 'variables', 'afterVariables',
 		'beforeMain', 'main', 'afterMain',
 	];
 
-	private $cache = null;
-	private $cacheKey = null;
+	private ?BagOStuff $cache = null;
+	private ?string $cacheKey = null;
 
-	protected $variables = [];
-	protected $paths = [];
-	protected $cacheTriggers = [];
+	protected array $variables = [];
+	protected array $paths = [];
+	protected array $cacheTriggers = [];
 
-	protected $styleText = null;
+	protected ?string $styleText = null;
 
 	/**
 	 * ResourceLoaderSCSSModule constructor.
@@ -73,8 +72,7 @@ class ResourceLoaderSCSSModule extends ResourceLoaderFileModule {
 	 * @param string|null $localBasePath
 	 * @param string|null $remoteBasePath
 	 */
-	public function __construct( $options = [], $localBasePath = null, $remoteBasePath = null ) {
-
+	public function __construct( array $options = [], ?string $localBasePath = null, ?string $remoteBasePath = null ) {
 		parent::__construct( $options, $localBasePath, $remoteBasePath );
 
 		$this->applyOptions( $options );
@@ -83,8 +81,7 @@ class ResourceLoaderSCSSModule extends ResourceLoaderFileModule {
 	/**
 	 * @param mixed[] $options
 	 */
-	protected function applyOptions( $options ) {
-
+	protected function applyOptions( array $options ): void {
 		$mapConfigToLocalVar = [
 			'variables'      => 'variables',
 			'paths'          => 'paths',
@@ -105,10 +102,8 @@ class ResourceLoaderSCSSModule extends ResourceLoaderFileModule {
 	 *
 	 * @return array
 	 */
-	public function getStyles( ResourceLoaderContext $context ) {
-
+	public function getStyles( ResourceLoaderContext $context ): array {
 		if ( $this->styleText === null ) {
-
 			$this->retrieveStylesFromCache( $context );
 
 			if ( $this->styleText === null ) {
@@ -122,21 +117,18 @@ class ResourceLoaderSCSSModule extends ResourceLoaderFileModule {
 	/**
 	 * @param ResourceLoaderContext $context
 	 */
-	protected function retrieveStylesFromCache( ResourceLoaderContext $context ) {
-
+	protected function retrieveStylesFromCache( ResourceLoaderContext $context ): void {
 		// Try for cache hit
 		$cacheKey = $this->getCacheKey( $context );
 		$cacheResult = $this->getCache()->get( $cacheKey );
 
 		if ( is_array( $cacheResult ) ) {
-
 			if ( $this->isCacheOutdated( $cacheResult[ 'storetime' ] ) ) {
 				wfDebug( "SCSS: Cache miss for {$this->getName()}: Cache outdated.\n", 'private' );
 			} else {
 				$this->styleText = $cacheResult[ 'styles' ];
 				wfDebug( "SCSS: Cache hit for {$this->getName()}: Got styles from cache.\n", 'private' );
 			}
-
 		} else {
 			wfDebug( "SCSS: Cache miss for {$this->getName()}: Styles not found in cache.\n", 'private' );
 		}
@@ -145,8 +137,7 @@ class ResourceLoaderSCSSModule extends ResourceLoaderFileModule {
 	/**
 	 * @return BagOStuff|null
 	 */
-	protected function getCache() {
-
+	protected function getCache(): BagOStuff {
 		if ( $this->cache === null ) {
 			$this->cache = ObjectCache::getInstance( $this->getCacheType() );
 		}
@@ -154,7 +145,7 @@ class ResourceLoaderSCSSModule extends ResourceLoaderFileModule {
 		return $this->cache;
 	}
 
-	private function getCacheType() {
+	private function getCacheType(): int {
 		return array_key_exists( 'egScssCacheType', $GLOBALS ) ? $GLOBALS[ 'egScssCacheType' ] : -1;
 	}
 
@@ -163,7 +154,7 @@ class ResourceLoaderSCSSModule extends ResourceLoaderFileModule {
 	 *
 	 * @param BagOStuff $cache
 	 */
-	public function setCache( BagOStuff $cache ) {
+	public function setCache( BagOStuff $cache ): void {
 		$this->cache = $cache;
 	}
 
@@ -172,10 +163,8 @@ class ResourceLoaderSCSSModule extends ResourceLoaderFileModule {
 	 *
 	 * @return string
 	 */
-	protected function getCacheKey( ResourceLoaderContext $context ) {
-
+	protected function getCacheKey( ResourceLoaderContext $context ): string {
 		if ( $this->cacheKey === null ) {
-
 			$styles = serialize( $this->styles );
 
 			$vars = $this->variables;
@@ -201,10 +190,8 @@ class ResourceLoaderSCSSModule extends ResourceLoaderFileModule {
 	 *
 	 * @return bool
 	 */
-	protected function isCacheOutdated( $cacheStoreTime ) {
-
+	protected function isCacheOutdated( int $cacheStoreTime ): bool {
 		foreach ( $this->cacheTriggers as $triggerFile ) {
-
 			if ( $triggerFile !== null && $cacheStoreTime < filemtime( $triggerFile ) ) {
 				return true;
 			}
@@ -217,17 +204,15 @@ class ResourceLoaderSCSSModule extends ResourceLoaderFileModule {
 	/**
 	 * @param ResourceLoaderContext $context
 	 */
-	protected function compileStyles( ResourceLoaderContext $context ) {
-
+	protected function compileStyles( ResourceLoaderContext $context ): void {
 		$scss = new Compiler();
 		$scss->setImportPaths( $this->getLocalPath( '' ) );
 
 		// Allows inlining of arbitrary files regardless of extension, .css in particular
 		$scss->addImportPath(
-
 			// addImportPath is declared as requiring a string param, but actually also understand callables
 			/** @scrutinizer ignore-type */
-			function ( $path ) {
+			static function ( $path ) {
 				if ( file_exists( $path ) ) {
 					return $path;
 				}
@@ -237,7 +222,6 @@ class ResourceLoaderSCSSModule extends ResourceLoaderFileModule {
 		);
 
 		try {
-
 			$imports = $this->getStyleFilesList();
 
 			foreach ( $imports as $key => $import ) {
@@ -256,21 +240,18 @@ class ResourceLoaderSCSSModule extends ResourceLoaderFileModule {
 			$this->styleText = $style;
 
 			$this->updateCache( $context );
-
 		} catch ( Exception $e ) {
 
 			$this->purgeCache( $context );
 			wfDebug( $e->getMessage() );
 			$this->styleText = '/* SCSS compile error: ' . $e->getMessage() . '*/';
 		}
-
 	}
 
 	/**
 	 * @param ResourceLoaderContext $context
 	 */
-	protected function updateCache( ResourceLoaderContext $context ) {
-
+	protected function updateCache( ResourceLoaderContext $context ): void {
 		$this->getCache()->set(
 			$this->getCacheKey( $context ),
 			[ 'styles' => $this->styleText, 'storetime' => time() ]
@@ -280,21 +261,22 @@ class ResourceLoaderSCSSModule extends ResourceLoaderFileModule {
 	/**
 	 * @param ResourceLoaderContext $context
 	 */
-	protected function purgeCache( ResourceLoaderContext $context ) {
+	protected function purgeCache( ResourceLoaderContext $context ): void {
 		$this->getCache()->delete( $this->getCacheKey( $context ) );
 	}
 
 	/**
 	 * @see ResourceLoaderFileModule::supportsURLLoading
+	 * @return bool
 	 */
-	public function supportsURLLoading() {
+	public function supportsURLLoading(): bool {
 		return false;
 	}
 
 	/**
 	 * @return array
 	 */
-	protected function getStyleFilesList() {
+	protected function getStyleFilesList(): array {
 		$styles = $this->collateStyleFilesByPosition();
 		$imports = [];
 
@@ -310,7 +292,7 @@ class ResourceLoaderSCSSModule extends ResourceLoaderFileModule {
 	/**
 	 * @return string[][]
 	 */
-	private function collateStyleFilesByPosition() {
+	private function collateStyleFilesByPosition(): array {
 		$collatedFiles = [];
 		foreach ( $this->styles as $key => $value ) {
 			if ( is_int( $key ) ) {

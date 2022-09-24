@@ -3,7 +3,7 @@
  * File holding the ResourceLoaderSCSSModuleTest class
  *
  * @copyright (C) 2018 - 2019, Stephan Gambke
- * @license       http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License, version 3 (or later)
+ * @license       GPL-3.0-or-later
  *
  * This file is part of the MediaWiki extension Bootstrap.
  * The Bootstrap extension is free software: you can redistribute it and/or
@@ -23,14 +23,14 @@
  * @ingroup Bootstrap
  */
 
-
 namespace SCSS\Tests;
 
+use HashBagOStuff;
+use PHPUnit\Framework\TestCase;
 use SCSS\ResourceLoaderSCSSModule;
 
-use HashBagOStuff;
-
 /**
+ * @covers \SCSS\ResourceLoaderSCSSModule
  * @uses \SCSS\ResourceLoaderSCSSModule
  *
  * @ingroup Test
@@ -41,10 +41,9 @@ use HashBagOStuff;
  *
  * @since 1.0
  */
-class ResourceLoaderSCSSModuleTest extends \PHPUnit_Framework_TestCase {
+class ResourceLoaderSCSSModuleTest extends TestCase {
 
 	public function testCanConstruct() {
-
 		$this->assertInstanceOf(
 			'\SCSS\ResourceLoaderSCSSModule',
 			new ResourceLoaderSCSSModule()
@@ -52,7 +51,6 @@ class ResourceLoaderSCSSModuleTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testGetStyles() {
-
 		$resourceLoaderContext = $this->getMockBuilder( '\ResourceLoaderContext' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -64,7 +62,6 @@ class ResourceLoaderSCSSModuleTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testGetStylesFromPresetCache() {
-
 		$resourceLoaderContext = $this->getMockBuilder( '\ResourceLoaderContext' )
 			->disableOriginalConstructor()
 			->getMock();
