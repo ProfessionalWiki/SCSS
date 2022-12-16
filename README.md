@@ -1,6 +1,6 @@
 # MediaWiki SCSS library
 
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/ProfessionalWiki/SCSS/CI/master)](https://github.com/ProfessionalWiki/SCSS/actions?query=workflow%3ACI)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/ProfessionalWiki/SCSS/ci.yml?branch=master)](https://github.com/ProfessionalWiki/SCSS/actions?query=workflow%3ACI)
 [![Latest Stable Version](https://poser.pugx.org/mediawiki/scss/version.png)](https://packagist.org/packages/mediawiki/scss)
 [![License](https://poser.pugx.org/mediawiki/scss/license)](https://packagist.org/packages/mediawiki/scss)
 
