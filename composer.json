@@ -40,7 +40,7 @@
 		"scssphp/scssphp": "^1.11.0"
 	},
 	"require-dev": {
-		"phpunit/phpunit": "^10.0.19",
+		"phpunit/phpunit": "^9.6.8",
 		"vimeo/psalm": "^5.12.0",
 		"phpstan/phpstan": "^1.10.15",
 		"mediawiki/mediawiki-codesniffer": "^v41.0.0",
