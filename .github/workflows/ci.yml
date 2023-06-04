@@ -163,3 +163,64 @@ jobs:
 
       - name: PHPStan
         run: cd vendor/mediawiki/scss && php vendor/bin/phpstan analyse
+
+  Psalm:
+    name: "Psalm: MW ${{ matrix.mw }}, PHP ${{ matrix.php }}"
+
+    strategy:
+      matrix:
+        include:
+          - mw: 'REL1_39'
+            php: '8.1'
+
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: mediawiki
+
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: mbstring, intl
+          tools: composer
+
+      - name: Cache MediaWiki
+        id: cache-mediawiki
+        uses: actions/cache@v3
+        with:
+          path: |
+            mediawiki
+            !mediawiki/extensions/
+            !mediawiki/vendor/
+          key: mw_${{ matrix.mw }}-php${{ matrix.php }}
+
+      - name: Cache Composer cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.composer/cache
+          key: composer-php${{ matrix.php }}
+
+      - uses: actions/checkout@v3
+        with:
+          path: EarlyCopy
+
+      - name: Install MediaWiki
+        if: steps.cache-mediawiki.outputs.cache-hit != 'true'
+        working-directory: ~
+        run: bash EarlyCopy/.github/workflows/installWiki.sh ${{ matrix.mw }}
+
+      - uses: actions/checkout@v3
+        with:
+          path: mediawiki/vendor/mediawiki/scss
+
+      - name: Composer update
+        run: composer update --no-progress --no-interaction --prefer-dist --optimize-autoloader
+
+      - name: Composer install
+        run: cd vendor/mediawiki/scss && composer install --no-progress --no-interaction --prefer-dist --optimize-autoloader
+
+      - name: Psalm
+        run: cd vendor/mediawiki/scss && php vendor/bin/psalm --config=psalm.xml --shepherd --stats
