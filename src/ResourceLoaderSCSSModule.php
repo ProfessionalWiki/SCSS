@@ -28,9 +28,9 @@ namespace SCSS;
 use BagOStuff;
 use CSSJanus;
 use Exception;
+use MediaWiki\ResourceLoader\Context;
+use MediaWiki\ResourceLoader\FileModule;
 use ObjectCache;
-use ResourceLoaderContext;
-use ResourceLoaderFileModule;
 use ScssPhp\ScssPhp\Compiler;
 
 /**
@@ -48,8 +48,11 @@ use ScssPhp\ScssPhp\Compiler;
  *
  * @ingroup SCSS
  */
-class ResourceLoaderSCSSModule extends ResourceLoaderFileModule {
+class ResourceLoaderSCSSModule extends FileModule {
 
+	/**
+	 * @var string[]
+	 */
 	private array $styleModulePositions = [
 		'beforeFunctions', 'functions', 'afterFunctions',
 		'beforeVariables', 'variables', 'afterVariables',
@@ -59,8 +62,19 @@ class ResourceLoaderSCSSModule extends ResourceLoaderFileModule {
 	private ?BagOStuff $cache = null;
 	private ?string $cacheKey = null;
 
+	/**
+	 * @var array<string, string>
+	 */
 	protected array $variables = [];
+
+	/**
+	 * @var string[]
+	 */
 	protected array $paths = [];
+
+	/**
+	 * @var string[]
+	 */
 	protected array $cacheTriggers = [];
 
 	protected ?string $styleText = null;
@@ -98,11 +112,9 @@ class ResourceLoaderSCSSModule extends ResourceLoaderFileModule {
 	/**
 	 * Get the compiled Bootstrap styles
 	 *
-	 * @param ResourceLoaderContext $context
-	 *
-	 * @return array
+	 * @return array<string, string>
 	 */
-	public function getStyles( ResourceLoaderContext $context ): array {
+	public function getStyles( Context $context ): array {
 		if ( $this->styleText === null ) {
 			$this->retrieveStylesFromCache( $context );
 
@@ -114,10 +126,7 @@ class ResourceLoaderSCSSModule extends ResourceLoaderFileModule {
 		return [ 'all' => $this->styleText ];
 	}
 
-	/**
-	 * @param ResourceLoaderContext $context
-	 */
-	protected function retrieveStylesFromCache( ResourceLoaderContext $context ): void {
+	protected function retrieveStylesFromCache( Context $context ): void {
 		// Try for cache hit
 		$cacheKey = $this->getCacheKey( $context );
 		$cacheResult = $this->getCache()->get( $cacheKey );
@@ -135,7 +144,7 @@ class ResourceLoaderSCSSModule extends ResourceLoaderFileModule {
 	}
 
 	/**
-	 * @return BagOStuff|null
+	 * @return BagOStuff
 	 */
 	protected function getCache(): BagOStuff {
 		if ( $this->cache === null ) {
@@ -158,7 +167,7 @@ class ResourceLoaderSCSSModule extends ResourceLoaderFileModule {
 		$this->cache = $cache;
 	}
 
-	protected function getCacheKey( ResourceLoaderContext $context ): string {
+	protected function getCacheKey( Context $context ): string {
 		if ( $this->cacheKey === null ) {
 			$styles = serialize( $this->styles );
 
@@ -191,10 +200,7 @@ class ResourceLoaderSCSSModule extends ResourceLoaderFileModule {
 		return false;
 	}
 
-	/**
-	 * @param ResourceLoaderContext $context
-	 */
-	protected function compileStyles( ResourceLoaderContext $context ): void {
+	protected function compileStyles( Context $context ): void {
 		$scss = new Compiler();
 		$scss->setImportPaths( $this->getLocalPath( '' ) );
 
@@ -238,20 +244,14 @@ class ResourceLoaderSCSSModule extends ResourceLoaderFileModule {
 		}
 	}
 
-	/**
-	 * @param ResourceLoaderContext $context
-	 */
-	protected function updateCache( ResourceLoaderContext $context ): void {
+	protected function updateCache( Context $context ): void {
 		$this->getCache()->set(
 			$this->getCacheKey( $context ),
 			[ 'styles' => $this->styleText, 'storetime' => time() ]
 		);
 	}
 
-	/**
-	 * @param ResourceLoaderContext $context
-	 */
-	protected function purgeCache( ResourceLoaderContext $context ): void {
+	protected function purgeCache( Context $context ): void {
 		$this->getCache()->delete( $this->getCacheKey( $context ) );
 	}
 
