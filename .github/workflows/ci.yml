@@ -44,7 +44,7 @@ jobs:
 
       - name: Cache MediaWiki
         id: cache-mediawiki
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: |
             mediawiki
@@ -53,12 +53,12 @@ jobs:
           key: mw_${{ matrix.mw }}-php${{ matrix.php }}
 
       - name: Cache Composer cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.composer/cache
           key: composer-php${{ matrix.php }}
 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           path: EarlyCopy
 
@@ -67,12 +67,12 @@ jobs:
         working-directory: ~
         run: bash EarlyCopy/.github/workflows/installWiki.sh ${{ matrix.mw }}
 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           path: mediawiki/vendor/mediawiki/scss
 
       - name: Composer update
-        run: composer update
+        run: composer update --no-progress --no-interaction --prefer-dist --optimize-autoloader
 
       - name: Run PHPUnit
         run: php tests/phpunit/phpunit.php -c vendor/mediawiki/scss
