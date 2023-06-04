@@ -158,11 +158,6 @@ class ResourceLoaderSCSSModule extends ResourceLoaderFileModule {
 		$this->cache = $cache;
 	}
 
-	/**
-	 * @param ResourceLoaderContext $context
-	 *
-	 * @return string
-	 */
 	protected function getCacheKey( ResourceLoaderContext $context ): string {
 		if ( $this->cacheKey === null ) {
 			$styles = serialize( $this->styles );
@@ -185,11 +180,6 @@ class ResourceLoaderSCSSModule extends ResourceLoaderFileModule {
 		return $this->cacheKey;
 	}
 
-	/**
-	 * @param int $cacheStoreTime
-	 *
-	 * @return bool
-	 */
 	protected function isCacheOutdated( int $cacheStoreTime ): bool {
 		foreach ( $this->cacheTriggers as $triggerFile ) {
 			if ( $triggerFile !== null && $cacheStoreTime < filemtime( $triggerFile ) ) {
@@ -267,7 +257,6 @@ class ResourceLoaderSCSSModule extends ResourceLoaderFileModule {
 
 	/**
 	 * @see ResourceLoaderFileModule::supportsURLLoading
-	 * @return bool
 	 */
 	public function supportsURLLoading(): bool {
 		return false;

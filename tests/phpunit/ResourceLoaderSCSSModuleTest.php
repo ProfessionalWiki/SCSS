@@ -43,14 +43,14 @@ use SCSS\ResourceLoaderSCSSModule;
  */
 class ResourceLoaderSCSSModuleTest extends TestCase {
 
-	public function testCanConstruct() {
+	public function testCanConstruct(): void {
 		$this->assertInstanceOf(
 			'\SCSS\ResourceLoaderSCSSModule',
 			new ResourceLoaderSCSSModule()
 		);
 	}
 
-	public function testGetStyles() {
+	public function testGetStyles(): void {
 		$resourceLoaderContext = $this->getMockBuilder( '\ResourceLoaderContext' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -61,7 +61,7 @@ class ResourceLoaderSCSSModuleTest extends TestCase {
 		$this->assertArrayHasKey( 'all', $instance->getStyles( $resourceLoaderContext ) );
 	}
 
-	public function testGetStylesFromPresetCache() {
+	public function testGetStylesFromPresetCache(): void {
 		$resourceLoaderContext = $this->getMockBuilder( '\ResourceLoaderContext' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -115,7 +115,7 @@ class ResourceLoaderSCSSModuleTest extends TestCase {
 	//	$this->assertContains( 'SCSS compile error', $result['all'] );
 	//}
 
-	public function testSupportsURLLoading() {
+	public function testSupportsURLLoading(): void {
 		$instance = new ResourceLoaderSCSSModule();
 		$this->assertFalse( $instance->supportsURLLoading() );
 	}

@@ -76,3 +76,29 @@ jobs:
 
       - name: Run PHPUnit
         run: php tests/phpunit/phpunit.php -c vendor/mediawiki/scss
+
+  code-style:
+    name: "Code style: MW ${{ matrix.mw }}, PHP ${{ matrix.php }}"
+
+    strategy:
+      matrix:
+        include:
+          - mw: 'REL1_39'
+            php: '8.1'
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: mbstring, intl, php-ast
+          tools: composer
+
+      - uses: actions/checkout@v3
+
+      - name: Composer install
+        run: composer install --no-progress --no-interaction --prefer-dist --optimize-autoloader
+
+      - run: vendor/bin/phpcs -p -s

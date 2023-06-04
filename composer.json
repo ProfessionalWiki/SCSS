@@ -39,6 +39,13 @@
 		"php": ">=8.0",
 		"scssphp/scssphp": "^1.11.0"
 	},
+	"require-dev": {
+		"phpunit/phpunit": "^10.0.19",
+		"vimeo/psalm": "^5.12.0",
+		"phpstan/phpstan": "^1.10.15",
+		"mediawiki/mediawiki-codesniffer": "^v41.0.0",
+		"slevomat/coding-standard": "^v8.11.1"
+	},
 	"autoload": {
 		"psr-4": {
 			"SCSS\\": "src/",
@@ -48,6 +55,11 @@
 	"extra": {
 		"branch-alias": {
 			"dev-master": "4.x-dev"
+		}
+	},
+	"config": {
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
 		}
 	}
 }
