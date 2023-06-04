@@ -96,9 +96,9 @@ class ResourceLoaderSCSSModule extends FileModule {
 	 * @param mixed[] $options
 	 */
 	protected function applyOptions( array $options ): void {
-		$this->variables = $options['variables'];
-		$this->paths = $options['paths'];
-		$this->cacheTriggers = $options['cacheTriggers'];
+		$this->variables = $options['variables'] ?? [];
+		$this->paths = $options['paths'] ?? [];
+		$this->cacheTriggers = $options['cacheTriggers'] ?? [];
 	}
 
 	/**

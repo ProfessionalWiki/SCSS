@@ -19,18 +19,3 @@ parameters:
 			message: "#^Offset 'position' on \\*NEVER\\* on left side of \\?\\? always exists and is always null\\.$#"
 			count: 1
 			path: src/ResourceLoaderSCSSModule.php
-
-		-
-			message: "#^Property SCSS\\\\ResourceLoaderSCSSModule\\:\\:\\$cacheTriggers \\(array\\<string\\>\\) does not accept mixed\\.$#"
-			count: 1
-			path: src/ResourceLoaderSCSSModule.php
-
-		-
-			message: "#^Property SCSS\\\\ResourceLoaderSCSSModule\\:\\:\\$paths \\(array\\<string\\>\\) does not accept mixed\\.$#"
-			count: 1
-			path: src/ResourceLoaderSCSSModule.php
-
-		-
-			message: "#^Property SCSS\\\\ResourceLoaderSCSSModule\\:\\:\\$variables \\(array\\<string, string\\>\\) does not accept mixed\\.$#"
-			count: 1
-			path: src/ResourceLoaderSCSSModule.php
