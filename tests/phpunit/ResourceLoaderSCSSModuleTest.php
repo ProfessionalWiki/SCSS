@@ -96,24 +96,22 @@ class ResourceLoaderSCSSModuleTest extends TestCase {
 		$this->assertEquals( 'foo', $styles['all'] );
 	}
 
-	// FIXME: Re-activate. Needs faulty SCSS file as fixture.
-	//public function testGetStylesTryCatchExceptionIsThrownByScssParser() {
-	//
-	//	$resourceLoaderContext = $this->getMockBuilder( '\ResourceLoaderContext' )
-	//		->disableOriginalConstructor()
-	//		->getMock();
-	//
-	//	$options = [
-	//		'styles' => [ 'Foo"' ]
-	//	];
-	//
-	//	$instance = new ResourceLoaderSCSSModule( $options );
-	//	$instance->setCache( new HashBagOStuff );
-	//
-	//	$result = $instance->getStyles( $resourceLoaderContext );
-	//
-	//	$this->assertContains( 'SCSS compile error', $result['all'] );
-	//}
+	public function testGetStylesTryCatchExceptionIsThrownByScssParser(): void {
+
+		$resourceLoaderContext = $this->getMockBuilder( '\ResourceLoaderContext' )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$options = [
+			'styles' => [ 'Foo"' ]
+		];
+
+		$instance = new ResourceLoaderSCSSModule( $options );
+		$instance->setCache( new HashBagOStuff );
+
+		$result = $instance->getStyles( $resourceLoaderContext );
+		$this->assertStringContainsString( 'SCSS compile error', $result['all'] );
+	}
 
 	public function testSupportsURLLoading(): void {
 		$instance = new ResourceLoaderSCSSModule();
