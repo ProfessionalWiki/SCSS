@@ -15,35 +15,17 @@ jobs:
     strategy:
       matrix:
         include:
-          - mw: 'REL1_35'
-            php: 7.4
-            experimental: false
-          - mw: 'REL1_37'
-            php: 7.4
-            experimental: false
-          - mw: 'REL1_37'
+          - mw: 'REL1_39'
             php: 8.0
             experimental: false
-          - mw: 'REL1_37'
+          - mw: 'REL1_40'
             php: 8.1
-            experimental: false
-          - mw: 'REL1_38'
-            php: 7.4
-            experimental: false
-          - mw: 'REL1_38'
-            php: 8.0
-            experimental: false
-          - mw: 'REL1_38'
-            php: 8.1
-            experimental: false
-          - mw: 'master'
-            php: 7.4
-            experimental: true
-          - mw: 'master'
-            php: 8.0
             experimental: true
           - mw: 'master'
             php: 8.1
+            experimental: true
+          - mw: 'master'
+            php: 8.2
             experimental: true
 
     runs-on: ubuntu-latest
@@ -62,7 +44,7 @@ jobs:
 
       - name: Cache MediaWiki
         id: cache-mediawiki
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: |
             mediawiki
@@ -71,12 +53,12 @@ jobs:
           key: mw_${{ matrix.mw }}-php${{ matrix.php }}
 
       - name: Cache Composer cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.composer/cache
           key: composer-php${{ matrix.php }}
 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           path: EarlyCopy
 
@@ -85,12 +67,160 @@ jobs:
         working-directory: ~
         run: bash EarlyCopy/.github/workflows/installWiki.sh ${{ matrix.mw }}
 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           path: mediawiki/vendor/mediawiki/scss
 
       - name: Composer update
-        run: composer update
+        run: composer update --no-progress --no-interaction --prefer-dist --optimize-autoloader
 
       - name: Run PHPUnit
         run: php tests/phpunit/phpunit.php -c vendor/mediawiki/scss
+
+  code-style:
+    name: "Code style: MW ${{ matrix.mw }}, PHP ${{ matrix.php }}"
+
+    strategy:
+      matrix:
+        include:
+          - mw: 'REL1_39'
+            php: '8.0'
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: mbstring, intl, php-ast
+          tools: composer
+
+      - uses: actions/checkout@v3
+
+      - name: Composer install
+        run: composer install --no-progress --no-interaction --prefer-dist --optimize-autoloader
+
+      - run: vendor/bin/phpcs -p -s
+
+  PHPStan:
+    name: "PHPStan: MW ${{ matrix.mw }}, PHP ${{ matrix.php }}"
+
+    strategy:
+      matrix:
+        include:
+          - mw: 'REL1_39'
+            php: '8.0'
+
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: mediawiki
+
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: mbstring, intl
+          tools: composer
+
+      - name: Cache MediaWiki
+        id: cache-mediawiki
+        uses: actions/cache@v3
+        with:
+          path: |
+            mediawiki
+            !mediawiki/extensions/
+            !mediawiki/vendor/
+          key: mw_${{ matrix.mw }}-php${{ matrix.php }}
+
+      - name: Cache Composer cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.composer/cache
+          key: composer-php${{ matrix.php }}
+
+      - uses: actions/checkout@v3
+        with:
+          path: EarlyCopy
+
+      - name: Install MediaWiki
+        if: steps.cache-mediawiki.outputs.cache-hit != 'true'
+        working-directory: ~
+        run: bash EarlyCopy/.github/workflows/installWiki.sh ${{ matrix.mw }}
+
+      - uses: actions/checkout@v3
+        with:
+          path: mediawiki/vendor/mediawiki/scss
+
+      - name: Composer update
+        run: composer update --no-progress --no-interaction --prefer-dist --optimize-autoloader
+
+      - name: Composer install
+        run: cd vendor/mediawiki/scss && composer install --no-progress --no-interaction --prefer-dist --optimize-autoloader
+
+      - name: PHPStan
+        run: cd vendor/mediawiki/scss && php vendor/bin/phpstan analyse
+
+  Psalm:
+    name: "Psalm: MW ${{ matrix.mw }}, PHP ${{ matrix.php }}"
+
+    strategy:
+      matrix:
+        include:
+          - mw: 'REL1_39'
+            php: '8.0'
+
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: mediawiki
+
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: mbstring, intl
+          tools: composer
+
+      - name: Cache MediaWiki
+        id: cache-mediawiki
+        uses: actions/cache@v3
+        with:
+          path: |
+            mediawiki
+            !mediawiki/extensions/
+            !mediawiki/vendor/
+          key: mw_${{ matrix.mw }}-php${{ matrix.php }}
+
+      - name: Cache Composer cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.composer/cache
+          key: composer-php${{ matrix.php }}
+
+      - uses: actions/checkout@v3
+        with:
+          path: EarlyCopy
+
+      - name: Install MediaWiki
+        if: steps.cache-mediawiki.outputs.cache-hit != 'true'
+        working-directory: ~
+        run: bash EarlyCopy/.github/workflows/installWiki.sh ${{ matrix.mw }}
+
+      - uses: actions/checkout@v3
+        with:
+          path: mediawiki/vendor/mediawiki/scss
+
+      - name: Composer update
+        run: composer update --no-progress --no-interaction --prefer-dist --optimize-autoloader
+
+      - name: Composer install
+        run: cd vendor/mediawiki/scss && composer install --no-progress --no-interaction --prefer-dist --optimize-autoloader
+
+      - name: Psalm
+        run: cd vendor/mediawiki/scss && php vendor/bin/psalm --config=psalm.xml --shepherd --stats

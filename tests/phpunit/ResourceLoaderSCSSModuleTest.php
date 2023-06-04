@@ -3,7 +3,7 @@
  * File holding the ResourceLoaderSCSSModuleTest class
  *
  * @copyright (C) 2018 - 2019, Stephan Gambke
- * @license       http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License, version 3 (or later)
+ * @license       GPL-3.0-or-later
  *
  * This file is part of the MediaWiki extension Bootstrap.
  * The Bootstrap extension is free software: you can redistribute it and/or
@@ -23,14 +23,14 @@
  * @ingroup Bootstrap
  */
 
-
 namespace SCSS\Tests;
 
+use HashBagOStuff;
+use PHPUnit\Framework\TestCase;
 use SCSS\ResourceLoaderSCSSModule;
 
-use HashBagOStuff;
-
 /**
+ * @covers \SCSS\ResourceLoaderSCSSModule
  * @uses \SCSS\ResourceLoaderSCSSModule
  *
  * @ingroup Test
@@ -41,18 +41,16 @@ use HashBagOStuff;
  *
  * @since 1.0
  */
-class ResourceLoaderSCSSModuleTest extends \PHPUnit_Framework_TestCase {
+class ResourceLoaderSCSSModuleTest extends TestCase {
 
-	public function testCanConstruct() {
-
+	public function testCanConstruct(): void {
 		$this->assertInstanceOf(
 			'\SCSS\ResourceLoaderSCSSModule',
 			new ResourceLoaderSCSSModule()
 		);
 	}
 
-	public function testGetStyles() {
-
+	public function testGetStyles(): void {
 		$resourceLoaderContext = $this->getMockBuilder( '\ResourceLoaderContext' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -63,8 +61,7 @@ class ResourceLoaderSCSSModuleTest extends \PHPUnit_Framework_TestCase {
 		$this->assertArrayHasKey( 'all', $instance->getStyles( $resourceLoaderContext ) );
 	}
 
-	public function testGetStylesFromPresetCache() {
-
+	public function testGetStylesFromPresetCache(): void {
 		$resourceLoaderContext = $this->getMockBuilder( '\ResourceLoaderContext' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -99,26 +96,24 @@ class ResourceLoaderSCSSModuleTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals( 'foo', $styles['all'] );
 	}
 
-	// FIXME: Re-activate. Needs faulty SCSS file as fixture.
-	//public function testGetStylesTryCatchExceptionIsThrownByScssParser() {
-	//
-	//	$resourceLoaderContext = $this->getMockBuilder( '\ResourceLoaderContext' )
-	//		->disableOriginalConstructor()
-	//		->getMock();
-	//
-	//	$options = [
-	//		'styles' => [ 'Foo"' ]
-	//	];
-	//
-	//	$instance = new ResourceLoaderSCSSModule( $options );
-	//	$instance->setCache( new HashBagOStuff );
-	//
-	//	$result = $instance->getStyles( $resourceLoaderContext );
-	//
-	//	$this->assertContains( 'SCSS compile error', $result['all'] );
-	//}
+	public function testGetStylesTryCatchExceptionIsThrownByScssParser(): void {
 
-	public function testSupportsURLLoading() {
+		$resourceLoaderContext = $this->getMockBuilder( '\ResourceLoaderContext' )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$options = [
+			'styles' => [ 'Foo"' ]
+		];
+
+		$instance = new ResourceLoaderSCSSModule( $options );
+		$instance->setCache( new HashBagOStuff );
+
+		$result = $instance->getStyles( $resourceLoaderContext );
+		$this->assertStringContainsString( 'SCSS compile error', $result['all'] );
+	}
+
+	public function testSupportsURLLoading(): void {
 		$instance = new ResourceLoaderSCSSModule();
 		$this->assertFalse( $instance->supportsURLLoading() );
 	}
