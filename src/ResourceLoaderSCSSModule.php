@@ -212,9 +212,9 @@ class ResourceLoaderSCSSModule extends FileModule {
 				$imports[ $key ] = '@import "' . $path . '";';
 			}
 
-			$scss->setVariables( $this->variables );
+			$scss->addVariables( $this->variables );
 
-			$style = $scss->compile( implode( $imports ) );
+			$style = $scss->compileString( implode( $imports ) )->getCss();
 
 			if ( $this->getFlip( $context ) ) {
 				$style = CSSJanus::transform( $style, true, false );
