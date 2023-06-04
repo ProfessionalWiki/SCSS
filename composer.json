@@ -36,7 +36,7 @@
 		"rss": "https://github.com/ProfessionalWiki/SCSS/releases.atom"
 	},
 	"require": {
-		"php": ">=7.4.3",
+		"php": ">=8.0",
 		"scssphp/scssphp": "^1.11.0"
 	},
 	"autoload": {
@@ -47,7 +47,7 @@
 	},
 	"extra": {
 		"branch-alias": {
-			"dev-master": "3.x-dev"
+			"dev-master": "4.x-dev"
 		}
 	}
 }
