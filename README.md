@@ -125,7 +125,7 @@ version 3][license] (or any later version).
 
 ### Version 4.0.0
 
-Under development.
+Released on 2024-04-25
 
 * Raised minimum MediaWiki version from 1.35 to 1.39
 * Raised minimum PHP version from 7.4.3 to 8.0
