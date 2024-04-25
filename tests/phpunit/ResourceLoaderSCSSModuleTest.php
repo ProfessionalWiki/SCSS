@@ -26,6 +26,7 @@
 namespace SCSS\Tests;
 
 use HashBagOStuff;
+use MediaWiki\ResourceLoader\Context;
 use PHPUnit\Framework\TestCase;
 use SCSS\ResourceLoaderSCSSModule;
 
@@ -51,7 +52,7 @@ class ResourceLoaderSCSSModuleTest extends TestCase {
 	}
 
 	public function testGetStyles(): void {
-		$resourceLoaderContext = $this->getMockBuilder( '\ResourceLoaderContext' )
+		$resourceLoaderContext = $this->getMockBuilder( Context::class )
 			->disableOriginalConstructor()
 			->getMock();
 
@@ -62,7 +63,7 @@ class ResourceLoaderSCSSModuleTest extends TestCase {
 	}
 
 	public function testGetStylesFromPresetCache(): void {
-		$resourceLoaderContext = $this->getMockBuilder( '\ResourceLoaderContext' )
+		$resourceLoaderContext = $this->getMockBuilder( Context::class )
 			->disableOriginalConstructor()
 			->getMock();
 
@@ -98,7 +99,7 @@ class ResourceLoaderSCSSModuleTest extends TestCase {
 
 	public function testGetStylesTryCatchExceptionIsThrownByScssParser(): void {
 
-		$resourceLoaderContext = $this->getMockBuilder( '\ResourceLoaderContext' )
+		$resourceLoaderContext = $this->getMockBuilder( Context::class )
 			->disableOriginalConstructor()
 			->getMock();
 
