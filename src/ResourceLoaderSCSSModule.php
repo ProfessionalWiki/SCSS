@@ -30,6 +30,7 @@ use CSSJanus;
 use Exception;
 use MediaWiki\ResourceLoader\Context;
 use MediaWiki\ResourceLoader\FileModule;
+use MediaWiki\ResourceLoader\FilePath;
 use ObjectCache;
 use ScssPhp\ScssPhp\Compiler;
 
@@ -273,7 +274,7 @@ class ResourceLoaderSCSSModule extends FileModule {
 				if ( !isset( $collatedFiles['main'] ) ) {
 					$collatedFiles['main'] = [];
 				}
-				$collatedFiles['main'][] = $value;
+				$collatedFiles['main'][] = $value instanceof FilePath ? $value->getPath() : $value;
 			} elseif ( is_array( $value ) ) {
 				// File name as the key, options array as the value
 				$optionValue = $value['position'] ?? 'main';
