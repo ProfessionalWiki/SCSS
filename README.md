@@ -129,7 +129,7 @@ Under development.
 
 * Raised minimum MediaWiki version from 1.35 to 1.39
 * Raised minimum PHP version from 7.4.3 to 8.0
-* Raised minimum `scssphp` version from 1.10.2 to 1.11.0
+* Raised minimum `scssphp` version from 1.10.2 to 1.12.1
 * Modernized coding standards
 
 ### Version 3.0.1
