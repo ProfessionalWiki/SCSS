@@ -1,38 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="5.12.0@f90118cdeacd0088e7215e64c0c99ceca819e176">
+<files psalm-version="5.23.1@8471a896ccea3526b26d082f4461eeea467f10a4">
   <file src="src/ResourceLoaderSCSSModule.php">
     <DocblockTypeContradiction>
-      <code>is_array( $value )</code>
+      <code><![CDATA[is_array( $value )]]></code>
     </DocblockTypeContradiction>
-    <MixedArrayAccess>
-      <code><![CDATA[$value['position']]]></code>
-    </MixedArrayAccess>
-    <MixedArrayOffset>
-      <code>$collatedFiles[$optionValue]</code>
-      <code>$collatedFiles[$optionValue]</code>
-      <code>$collatedFiles[$optionValue]</code>
-    </MixedArrayOffset>
-    <MixedArrayTypeCoercion>
-      <code>$collatedFiles[$optionValue]</code>
-    </MixedArrayTypeCoercion>
     <MixedAssignment>
-      <code>$cacheResult</code>
-      <code>$collatedFiles[$optionValue][]</code>
-      <code>$optionValue</code>
+      <code><![CDATA[$cacheResult]]></code>
       <code><![CDATA[$this->cacheTriggers]]></code>
       <code><![CDATA[$this->paths]]></code>
       <code><![CDATA[$this->variables]]></code>
     </MixedAssignment>
-    <MixedReturnTypeCoercion>
-      <code>$collatedFiles</code>
-      <code>string[][]</code>
-    </MixedReturnTypeCoercion>
     <RedundantConditionGivenDocblockType>
-      <code>$triggerFile !== null</code>
-      <code>is_int( $key )</code>
+      <code><![CDATA[$triggerFile !== null]]></code>
+      <code><![CDATA[is_int( $key )]]></code>
     </RedundantConditionGivenDocblockType>
     <UnusedClass>
-      <code>ResourceLoaderSCSSModule</code>
+      <code><![CDATA[ResourceLoaderSCSSModule]]></code>
     </UnusedClass>
   </file>
 </files>

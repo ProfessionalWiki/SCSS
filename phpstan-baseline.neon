@@ -11,11 +11,6 @@ parameters:
 			path: src/ResourceLoaderSCSSModule.php
 
 		-
-			message: "#^Method SCSS\\\\ResourceLoaderSCSSModule\\:\\:collateStyleFilesByPosition\\(\\) should return array\\<array\\<string\\>\\> but returns array\\<string, array\\<int, MediaWiki\\\\ResourceLoader\\\\FilePath\\|string\\>\\>\\.$#"
-			count: 1
-			path: src/ResourceLoaderSCSSModule.php
-
-		-
-			message: "#^Offset 'position' on \\*NEVER\\* on left side of \\?\\? always exists and is always null\\.$#"
+			message: "#^Offset 'position' on \\*NEVER\\* on left side of \\?\\? always exists and is not nullable\\.$#"
 			count: 1
 			path: src/ResourceLoaderSCSSModule.php
