@@ -242,9 +242,6 @@ class ResourceLoaderSCSSModule extends FileModule {
 		$this->getCache()->delete( $this->getCacheKey( $context ) );
 	}
 
-	/**
-	 * @see ResourceLoaderFileModule::supportsURLLoading
-	 */
 	public function supportsURLLoading(): bool {
 		return false;
 	}
