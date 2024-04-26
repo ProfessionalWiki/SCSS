@@ -98,7 +98,6 @@ class ResourceLoaderSCSSModuleTest extends TestCase {
 	}
 
 	public function testGetStylesTryCatchExceptionIsThrownByScssParser(): void {
-
 		$resourceLoaderContext = $this->getMockBuilder( Context::class )
 			->disableOriginalConstructor()
 			->getMock();
