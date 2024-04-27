@@ -20,13 +20,13 @@ It should also be possible to add the module definition to the `extension.json`
 of a MediaWiki extension. See
 [Developing_with_ResourceLoader](https://www.mediawiki.org/wiki/ResourceLoader/Developing_with_ResourceLoader)
 
-There are some additional keys, that may be used:
+Some additional keys may be used:
 * `class`:
 	This is mandatory. It selects the class to be used for the module. For
- 	SCSS the value has to be `'SCSS\\ResourceLoaderSCSSModule'`
+ 	SCSS, the value has to be `'SCSS\\ResourceLoaderSCSSModule'`
 * `styles`:
-	Not really an additional key, but it has extended semantics. This key
-	contains the list of style files of the module. Each file can optionally be
+	It is not an additional key, but it has extended semantics. This key
+	contains the list of the module's style files. Each file can optionally be
 	given a position to influence the order in which the files are compiled.
 	Allowed values for the position are
 	1. `beforeFunctions`
@@ -41,21 +41,21 @@ There are some additional keys, that may be used:
 
 	If no position is given, `main` will be assumed.
 
-    All files of one module will be compiled together, i.e. variables, mixins
-    etc. will be shared between them.
+    All files of one module will be compiled together, i.e., variables, mixins
+    etc., will be shared between them.
 
 * `variables`:
 	An array of variables and values to override the SCSS variables in the
-	style files. This allows changing values (e.g. colors, fonts, margins)
+	style files. This allows changing values (e.g., colors, fonts, margins)
 	without having to modify the actual style files.
 * `cacheTriggers`:
 	Compiling SCSS is expensive, so compiled results are cached. This option
-	lists files that when changed will trigger a flushing of the cache and
-	re-compiling the style files.
+	lists files that, when changed, will trigger flushing of the cache and
+	re-compiling of the style files.
 
 	All files on this list will be checked for each web request. To minimizes the
-	load on the file system and the time to build the page it is not advisable
-	to just add all style files to this list.
+	load on the file system and the time to build the page, it is not advisable
+	to add all style files to this list.
 
 Here is an example definition:
 ```php
@@ -89,15 +89,15 @@ compiler, which has some limitations. See the
 
 ### Cache type
 
-`$egScssCacheType` can be set to request a specific cache type to be used for
-the compiled styles. To disable caching of SCSS styles completely (e.g. during
-development), set `$egScssCacheType = CACHE_NONE;`. This should obviously never
-be done on a production site.
+`$egScssCacheType` can be set to request a specific cache type for the compiled
+styles. To disable caching of SCSS styles altogether (e.g., during development),
+set `$egScssCacheType = CACHE_NONE;`. This should never be done on a production
+site.
 
 ## Professional Support
 
-The SCSS extension is maintained by [Professional.Wiki](https://professional.wiki).
-You can [contract us][contact-form] to help you with installation or customization of SCSS.
+The SCSS extension is maintained by [Professional Wiki](https://professional.wiki).
+You can [contract us][contact-form] to help you install or customize SCSS.
 We also do development work.
 
 ## Running the tests
@@ -180,7 +180,7 @@ Released on 2020-09-07
 
 Released on 2020-09-07
 
-* Temporarily fixed the version of `scssphp` to 1.1.1 to avoid 1.2 bug
+* Temporarily fixed the version of `scssphp` to 1.1.1 to avoid the 1.2 bug
 
 ### Version 2.0
 
@@ -191,4 +191,6 @@ Released on 2020-04-19
 
 ### Version 1.0
 
-Initial release
+Released on 2019-04-28
+
+* Initial release
