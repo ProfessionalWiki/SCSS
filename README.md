@@ -89,10 +89,10 @@ compiler, which has some limitations. See the
 
 ### Cache type
 
-`$egScssCacheType` can be set to request a specific cache type for
-the compiled styles. To disable caching of SCSS styles altogether (e.g., during
-development), set `$egScssCacheType = CACHE_NONE;`. This should never
-be done on a production site.
+`$egScssCacheType` can be set to request a specific cache type for the compiled
+styles. To disable caching of SCSS styles altogether (e.g., during development),
+set `$egScssCacheType = CACHE_NONE;`. This should never be done on a production
+site.
 
 ## Professional Support
 
@@ -191,4 +191,6 @@ Released on 2020-04-19
 
 ### Version 1.0
 
-Initial release
+Released on 2019-04-28
+
+* Initial release
