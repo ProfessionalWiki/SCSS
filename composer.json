@@ -43,7 +43,7 @@
 		"phpunit/phpunit": "^9.6.8",
 		"vimeo/psalm": "^5.12.0",
 		"phpstan/phpstan": "^1.10.15",
-		"mediawiki/mediawiki-codesniffer": "^v41.0.0 || ^43.0.0",
+		"mediawiki/mediawiki-codesniffer": "^44.0.0",
 		"slevomat/coding-standard": "^v8.11.1"
 	},
 	"autoload": {
