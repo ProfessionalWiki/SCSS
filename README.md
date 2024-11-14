@@ -1,7 +1,7 @@
 # MediaWiki SCSS library
 
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/ProfessionalWiki/SCSS/ci.yml?branch=master)](https://github.com/ProfessionalWiki/SCSS/actions?query=workflow%3ACI)
-[![Latest Stable Version](https://poser.pugx.org/mediawiki/scss/version.png)](https://packagist.org/packages/mediawiki/scss)
+[![Latest Stable Version](https://poser.pugx.org/mediawiki/scss/v/stable)](https://packagist.org/packages/mediawiki/scss)
 [![License](https://poser.pugx.org/mediawiki/scss/license)](https://packagist.org/packages/mediawiki/scss)
 
 The MediaWiki SCSS library provides a ResourceLoader module capable of compiling [SCSS].
