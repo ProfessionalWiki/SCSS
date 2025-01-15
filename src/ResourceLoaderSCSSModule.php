@@ -168,7 +168,7 @@ class ResourceLoaderSCSSModule extends FileModule {
 			// have to hash the module config, else it may become too long
 			$configHash = md5( $styles . $vars );
 
-			$this->cacheKey = \ObjectCache::getLocalClusterInstance()->makeKey(
+			$this->cacheKey = ObjectCache::getLocalClusterInstance()->makeKey(
 				'ext',
 				'scss',
 				$configHash,
