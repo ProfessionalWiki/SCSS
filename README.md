@@ -130,6 +130,7 @@ Released on 2025-12-20
 * Raised minimum MediaWiki version from 1.39 to 1.43
 * Raised minimum PHP version from 8.0 to 8.1
 * Raised minimum `scssphp` version from 1.12.1 to 1.13.0
+* Fixed MediaWiki 1.43 deprecations
 
 ### Version 4.0.0
 
