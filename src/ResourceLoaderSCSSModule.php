@@ -25,14 +25,15 @@
 
 namespace SCSS;
 
-use BagOStuff;
 use CSSJanus;
 use Exception;
+use MediaWiki\MediaWikiServices;
 use MediaWiki\ResourceLoader\Context;
 use MediaWiki\ResourceLoader\FileModule;
 use MediaWiki\ResourceLoader\FilePath;
-use ObjectCache;
+use ObjectCacheFactory;
 use ScssPhp\ScssPhp\Compiler;
+use Wikimedia\ObjectCache\BagOStuff;
 
 /**
  * ResourceLoader module based on local JavaScript/SCSS files.
@@ -138,10 +139,14 @@ class ResourceLoaderSCSSModule extends FileModule {
 
 	protected function getCache(): BagOStuff {
 		if ( $this->cache === null ) {
-			$this->cache = ObjectCache::getInstance( $this->getCacheType() );
+			$this->cache = $this->getObjectCacheFactory()->getInstance( $this->getCacheType() );
 		}
 
 		return $this->cache;
+	}
+
+	private function getObjectCacheFactory(): ObjectCacheFactory {
+		return MediaWikiServices::getInstance()->getObjectCacheFactory();
 	}
 
 	private function getCacheType(): int {
@@ -168,7 +173,7 @@ class ResourceLoaderSCSSModule extends FileModule {
 			// have to hash the module config, else it may become too long
 			$configHash = md5( $styles . $vars );
 
-			$this->cacheKey = ObjectCache::getLocalClusterInstance()->makeKey(
+			$this->cacheKey = $this->getObjectCacheFactory()->getLocalClusterInstance()->makeKey(
 				'ext',
 				'scss',
 				$configHash,
