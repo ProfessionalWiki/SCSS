@@ -25,10 +25,10 @@
 
 namespace SCSS\Tests;
 
-use HashBagOStuff;
 use MediaWiki\ResourceLoader\Context;
 use PHPUnit\Framework\TestCase;
 use SCSS\ResourceLoaderSCSSModule;
+use Wikimedia\ObjectCache\HashBagOStuff;
 
 /**
  * @covers \SCSS\ResourceLoaderSCSSModule
