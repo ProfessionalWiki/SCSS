@@ -8,8 +8,8 @@ The MediaWiki SCSS library provides a ResourceLoader module capable of compiling
 
 ## Requirements
 
-- [PHP] 8.0 or later
-- [MediaWiki] 1.39 or later
+- [PHP] 8.1 or later
+- [MediaWiki] 1.43 or later
 - [Composer]
 
 ## Use
@@ -122,6 +122,14 @@ version 3][license] (or any later version).
 [contact-form]: https://professional.wiki/en/contact
 
 ## Release notes
+
+### Version 5.0.0
+
+Released on 2025-12-20
+
+* Raised minimum MediaWiki version from 1.39 to 1.43
+* Raised minimum PHP version from 8.0 to 8.1
+* Raised minimum `scssphp` version from 1.12.1 to 1.13.0
 
 ### Version 4.0.0
 
