@@ -24,7 +24,7 @@ jobs:
           - mw: 'REL1_45'
             php: 8.3
             experimental: false
-          - mw: 'master'
+          - mw: 'REL1_46'
             php: 8.4
             experimental: true
           - mw: 'master'
@@ -53,7 +53,7 @@ jobs:
             mediawiki
             !mediawiki/extensions/
             !mediawiki/vendor/
-          key: mw_${{ matrix.mw }}-php${{ matrix.php }}
+          key: mw_${{ matrix.mw }}-php${{ matrix.php }}-v2
 
       - name: Cache Composer cache
         uses: actions/cache@v4
@@ -78,7 +78,14 @@ jobs:
         run: composer update --no-progress --no-interaction --prefer-dist --optimize-autoloader
 
       - name: Run PHPUnit
-        run: php tests/phpunit/phpunit.php -c vendor/mediawiki/scss
+        run: |
+          if [ -f tests/phpunit/phpunit.php ]; then
+            php tests/phpunit/phpunit.php -c vendor/mediawiki/scss
+          else
+            # MW 1.46 and later
+            composer phpunit:config
+            vendor/bin/phpunit vendor/mediawiki/scss/tests/phpunit
+          fi
 
   code-style:
     name: "Code style: MW ${{ matrix.mw }}, PHP ${{ matrix.php }}"
@@ -137,7 +144,7 @@ jobs:
             mediawiki
             !mediawiki/extensions/
             !mediawiki/vendor/
-          key: mw_${{ matrix.mw }}-php${{ matrix.php }}
+          key: mw_${{ matrix.mw }}-php${{ matrix.php }}-v2
 
       - name: Cache Composer cache
         uses: actions/cache@v4
@@ -198,7 +205,7 @@ jobs:
             mediawiki
             !mediawiki/extensions/
             !mediawiki/vendor/
-          key: mw_${{ matrix.mw }}-php${{ matrix.php }}
+          key: mw_${{ matrix.mw }}-php${{ matrix.php }}-v2
 
       - name: Cache Composer cache
         uses: actions/cache@v4
